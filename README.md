@@ -2,7 +2,18 @@
 
 Simple wrappers for ZFS command line tools.
 
-[![GoDoc](https://godoc.org/github.com/mistifyio/go-zfs?status.svg)](https://godoc.org/github.com/mistifyio/go-zfs)
+[![GoDoc](https://godoc.org/github.com/tomi-engel/go-zfs?status.svg)](https://godoc.org/github.com/mistifyio/go-zfs)
+
+## Fork Introduction
+
+This is a fork of the original [go-zfs project](https://github.com/mistifyio/go-zfs) in order to get our [zfs_exporter](https://github.com/tomi-engel/zfs_exporter) project up and running.
+
+Consider this as an __evil hack__.
+
+> Please use the original [go-zfs project](https://github.com/mistifyio/go-zfs) … not this code!
+
+
+The rest of this README is mainly take straight from the `go-zfs` project:
 
 ## Requirements ##
 
@@ -13,13 +24,13 @@ You need a working ZFS setup.  To use on Ubuntu 14.04, setup ZFS:
     sudo apt-get update
     sudo apt-get install ubuntu-zfs libzfs-dev
 
-Developed using Go 1.3, but currently there isn't anything 1.3 specific. Don't use Ubuntu packages for Go, use http://golang.org/doc/install
+Developed using Go 1.8.1
 
 Generally you need root privileges to use anything zfs related.
 
 ## Status ##
 
-This has been only been tested on Ubuntu 14.04
+This has been only been tested on Ubuntu 14.04 and older SmartOS releases.
 
 In the future, we hope to work directly with libzfs.
 
