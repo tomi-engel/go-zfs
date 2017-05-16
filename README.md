@@ -13,7 +13,7 @@ Consider this as an __evil hack__.
 > Please use the original [go-zfs project](https://github.com/mistifyio/go-zfs) … not this code!
 
 
-The rest of this README is mainly take straight from the `go-zfs` project:
+The rest of this README is mainly taken straight from the `go-zfs` project:
 
 ## Requirements ##
 
