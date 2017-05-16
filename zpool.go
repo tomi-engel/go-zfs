@@ -110,3 +110,22 @@ func ListZpools() ([]*Zpool, error) {
 	}
 	return pools, nil
 }
+
+// ListZpoolNames lists only the ZFS zpool names accessible on the current system,
+// without requesting all the properties at this time. Use GetZpool() for details on relevant pools.
+//
+func ListZpoolNames() ([]string, error) {
+	args := []string{"list", "-Ho", "name"}
+	out, err := zpool(args...)
+	if err != nil {
+		return nil, err
+	}
+
+	names := make([]string, 0, len(out))
+
+	for _, line := range out {
+		names = append(names, line[0])
+
+	}
+	return names, nil
+}
