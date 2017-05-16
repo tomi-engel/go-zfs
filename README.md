@@ -2,7 +2,7 @@
 
 Simple wrappers for ZFS command line tools.
 
-[![GoDoc](https://godoc.org/github.com/tomi-engel/go-zfs?status.svg)](https://godoc.org/github.com/mistifyio/go-zfs)
+[![GoDoc](https://godoc.org/github.com/tomi-engel/go-zfs?status.svg)](https://godoc.org/github.com/tomi-engel/go-zfs)
 
 ## Fork Introduction
 
