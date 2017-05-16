@@ -55,6 +55,31 @@ func GetZpool(name string) (*Zpool, error) {
 	return z, nil
 }
 
+// GetZpoolWithoutUsingGetPFeature is like GetZpool .. itretrieves a single ZFS zpool by name.
+// But it tries to work around a bug in older zpool commands which claim to have the -p option
+// but actually do not support it.
+//
+func GetZpoolWithoutUsingGetPFeature(name string) (*Zpool, error) {
+	args := zpoolGetNoPArgs
+	args = append(args, name)
+	out, err := zpool(args...)
+	if err != nil {
+		return nil, err
+	}
+
+	// there is no -H
+	out = out[1:]
+
+	z := &Zpool{Name: name}
+	for _, line := range out {
+		if err := z.parseHumanPrettyPrintedLine(line); err != nil {
+			return nil, err
+		}
+	}
+
+	return z, nil
+}
+
 // Datasets returns a slice of all ZFS datasets in a zpool.
 func (z *Zpool) Datasets() ([]*Dataset, error) {
 	return Datasets(z.Name)
