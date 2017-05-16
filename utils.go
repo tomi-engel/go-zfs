@@ -346,6 +346,53 @@ func (z *Zpool) parseLine(line []string) error {
 		err = setUint(&z.Leaked, val)
 	case "dedupratio":
 		// Trim trailing "x" before parsing float64
+		// TODO: Is this a bug? With the "-p" option some zpool commants return "100" and not "1.00x"
+		//
+		z.DedupRatio, err = strconv.ParseFloat(val[:len(val)-1], 64)
+	}
+	return err
+}
+
+// This is a version of the parseLine function which only knows the
+// elements which are not true numbers .. as we are now seeing the "human pretty print" output.
+// as most numbers in the
+func (z *Zpool) parseHumanPrettyPrintedLine(line []string) error {
+	prop := line[1]
+	val := line[2]
+
+	var err error
+
+	// TODO: The quick hack is to fake zeor values for all number properties.
+	// A better "fake" would be to try to parse the human hints .. like "T" for TB and G for GB etc.
+	//
+	switch prop {
+	case "name":
+		setString(&z.Name, val)
+	case "health":
+		setString(&z.Health, val)
+	case "allocated":
+		// err = setUint(&z.Allocated, val)
+		z.Allocated = 0
+	case "size":
+		// err = setUint(&z.Size, val)
+		z.Size = 0
+	case "free":
+		// err = setUint(&z.Free, val)
+		z.Free = 0
+	case "fragmentation":
+		// Trim trailing "%" before parsing uint
+		// err = setUint(&z.Fragmentation, val[:len(val)-1])
+		z.Fragmentation = 0
+	case "readonly":
+		z.ReadOnly = val == "on"
+	case "freeing":
+		// err = setUint(&z.Freeing, val)
+		z.Freeing = 0
+	case "leaked":
+		//err = setUint(&z.Leaked, val)
+		z.Leaked = 0
+	case "dedupratio":
+		// Trim trailing "x" before parsing float64
 		z.DedupRatio, err = strconv.ParseFloat(val[:len(val)-1], 64)
 	}
 	return err
